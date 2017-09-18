@@ -1,0 +1,25 @@
+---
+#Create the instance
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  roles:
+    - ec2_provision
+
+#Configure
+- hosts: master
+  gather_facts: false
+  remote_user: centos
+  sudo: yes
+  roles:
+    - pg_master
+
+- hosts: repl
+  gather_facts: false
+  remote_user: centos
+  sudo: yes
+  roles:
+    - pg_repl
+
+# update load balancer
+  # TODO
