@@ -17,8 +17,3 @@
 
 - name: Execute repl_db_init
   command: /tmp/repl_db_init.sh
-
-  - ec2_remote_facts:
-    filters:
-      instance-state-name: running
-      "tag:Group": 	pg_master
