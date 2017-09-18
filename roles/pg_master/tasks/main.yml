@@ -12,8 +12,17 @@
     - postgresql96-server 
     - postgresql96-contrib
 
-- name: run pginit scripts
+- name: Copy db_init
+  copy: src=../files/db_init.sh dest=/tmp/db_init.sh
+
+- name: Execute db_init
+  command: /tmp/db_init.sh
 
 - name: create replication account
   command: sudo su postgres -c 'psql -c "create user replicador replication;"'
 
+- name: Modfiy db config files
+  copy: src=../files/modify_db_cfg.sh dest=/tmp/modify_db_cfg.sh
+
+- name: Execute modify db config
+  command: /tmp/modify_db_cfg.sh
